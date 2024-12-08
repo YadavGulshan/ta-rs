@@ -104,3 +104,36 @@ macro_rules! test_indicator {
         }
     };
 }
+
+macro_rules! test_hlcv_indicator {
+    ($i:tt) => {
+        #[test]
+        fn test_hlcv() {
+            let test_value = Bar::new()
+                .high(10.0)
+                .low(8.0)
+                .close(9.0)
+                .volume(1000.0);
+
+            let mut indicator = $i::default();
+
+            // Test first output
+            let first_output = indicator.next(&test_value);
+
+            // Test subsequent output
+            let second_bar = Bar::new()
+                .high(11.0)
+                .low(9.0)
+                .close(10.0)
+                .volume(1500.0);
+            indicator.next(&second_bar);
+
+            // Test reset functionality
+            indicator.reset();
+            assert_eq!(indicator.next(&test_value), first_output);
+
+            // Test display implementation
+            format!("{}", indicator);
+        }
+    };
+}

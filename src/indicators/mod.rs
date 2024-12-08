@@ -66,4 +66,7 @@ mod money_flow_index;
 pub use self::money_flow_index::MoneyFlowIndex;
 
 mod on_balance_volume;
+mod volume_weighted_average_price;
+pub use self::volume_weighted_average_price::VolumeWeightedAveragePrice;
+
 pub use self::on_balance_volume::OnBalanceVolume;
